@@ -1,44 +1,33 @@
-#include "Header.cpp"
+#include "SFML_Headers.h"
 
 int main()
 {
-    // create the window
-    sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
+	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
 
-    // run the program as long as the window is open
-    while (window.isOpen())
-    {
-        // check all the window's events that were triggered since the last iteration of the loop
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            // "close requested" event: we close the window
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
+	Character *character = new Character();
 
-        // clear the window with black color
-        window.clear(sf::Color::Black);
-
-		sf::Texture texture;
-		if (!texture.loadFromFile("image2.png"))
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
 		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+			if (event.type == sf::Event::KeyPressed){
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+					character->UpdatePosition(5, 0);
+				}
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+					character->UpdatePosition(-5, 0);
+				}
+			}
+
 		}
 
-		sf::Sprite sprite;
-        sprite.setTexture(texture);
-		//sprite.getColor();
-        //sprite.setColor(sf::Color(0, 255, 0));
-		sprite.setScale	(0.4, 0.3);
-		window.draw(sprite);
-		
+		window.clear();
+		window.draw(character->getSprite());
+		window.display();
+	}
 
-        // draw everything here...
-        // window.draw(...);
-
-        // end the current frame
-        window.display();
-    }
-
-    return 0;
+	return 0;
 }

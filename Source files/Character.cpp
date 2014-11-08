@@ -8,6 +8,15 @@ Character::Character(){
 	characterSprite->setTexture(*Texture);
 }
 
+void Character::UpdatePosition(float x, float y){
+	characterSprite->move(x, y);
+}
+
 sf::Sprite Character::getSprite(){
 	return *characterSprite;
+}
+
+Character:: ~Character(){
+	delete characterSprite;
+	delete Texture;
 }
