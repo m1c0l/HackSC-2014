@@ -3,5 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Character.h"
+#include "Door.h"
+#include "Exit.h"
 #include "GeneralFunctions.h"
 #endif
