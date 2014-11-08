@@ -3,10 +3,11 @@
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
+	window.setFramerateLimit(60);
 
 	std::vector<sf::Sprite> list;
-	Character *character = new Character("player");
-	Character *monster = new Character("ghost");
+	Character *character = new Character();
+	Ghost *monster = new Ghost();
 	list.push_back(monster->getSprite());
 
 	while (window.isOpen())
@@ -27,8 +28,12 @@ int main()
 			if (event.type == sf::Event::KeyReleased){
 				character->UpdatePosition(0, 0);
 			}
+		
+			
 			collision(character, list);
 		}
+		
+		monster->UpdatePosition();
 
 		window.clear();
 		window.draw(character->getSprite());
