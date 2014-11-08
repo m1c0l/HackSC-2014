@@ -7,7 +7,7 @@ class Door{
 public:
 	Door();
 	sf::Sprite getSprite();
-private:
+protected:
 	sf::Sprite *doorSprite;
 	sf::Texture *Texture;
 	void LoadTexture();
