@@ -7,7 +7,7 @@ class Character{
 public:
 	Character();
 	sf::Sprite getSprite();
-	void UpdatePosition(float x, float y);
+	void UpdatePosition(float x, float y); 
 protected:
 	sf::Sprite *characterSprite;
 	sf::Texture *Texture;

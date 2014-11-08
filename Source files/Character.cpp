@@ -25,6 +25,9 @@ void Character::UpdatePosition(float x, float y){
 		if (animationCycle % 3 == 2){
 			characterSprite->setTextureRect(sf::IntRect(450, 15, 90, 180));
 		}
+		if (!characterSprite->getGlobalBounds().contains(0, characterSprite->getPosition().y)){
+			characterSprite->move(x, y);
+		}
 	}
 	if (x > 0){
 		if (animationCycle % 3 == 0){
@@ -36,12 +39,17 @@ void Character::UpdatePosition(float x, float y){
 		if (animationCycle % 3 == 2){
 			characterSprite->setTextureRect(sf::IntRect(315, 210, 90, 180));
 		}
+
+		if (!characterSprite->getGlobalBounds().contains(800, characterSprite->getPosition().y)){
+			characterSprite->move(x, y);
+		}
 	}
+
 	if (x == 0){
 		characterSprite->setTextureRect(sf::IntRect(450, 210, 105, 180));
 		animationCycle = 0;
 	}
-	characterSprite->move(x, y);
+
 	animationCycle++;
 }
 
@@ -79,14 +87,13 @@ void Ghost::UpdatePosition(){
 		characterSprite->setTextureRect(sf::IntRect(225, 16, 90, 180));
 	}
 
-	characterSprite->move(ghostMovement, 0);
-
 	if (animationCycle == 5){
 		animationCycle = 0;
-	}
-	else{
+	}else{
 		animationCycle++;
 	}
+
+	characterSprite->move(ghostMovement, 0);
 	collision();
 }
 
