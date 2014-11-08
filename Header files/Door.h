@@ -13,4 +13,10 @@ protected:
 	void LoadTexture();
 	~Door();
 };
+
+class Exit : public Door{
+public:
+	Exit();
+	// TODO: exit will act differently from the door when the character enters it
+};
 #endif
