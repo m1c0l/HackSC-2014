@@ -8,7 +8,12 @@ int main()
 	std::vector<sf::Sprite> list;
 	Character *character = new Character();
 	Ghost *monster = new Ghost();
+	std::vector<Door> doors;
+	Floor *floor;
+
 	list.push_back(monster->getSprite());
+	doors.push_back(Door());
+	floor = new Floor(doors);
 
 	while (window.isOpen())
 	{
@@ -17,6 +22,12 @@ int main()
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
+			// draw the floor first
+			window.draw(floor->getSprite());
+			for (int i = 0; i < floor->getDoors().size(); i++) {
+				window.draw(floor->getDoors()[i].getSprite());
+			}
+
 			if (event.type == sf::Event::KeyPressed){
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
 					character->UpdatePosition(10, 0);

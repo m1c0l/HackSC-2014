@@ -6,12 +6,12 @@
 class Door{
 public:
 	Door();
+	~Door();
 	sf::Sprite getSprite();
 protected:
 	sf::Sprite *doorSprite;
 	sf::Texture *Texture;
-	void LoadTexture();
-	~Door();
+	
 };
 
 class Exit : public Door{
