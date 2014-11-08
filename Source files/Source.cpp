@@ -1,9 +1,4 @@
-#include <SFML/Graphics.hpp>
-#include <cstdlib>
-#include <string>
-#include <iostream>
-
-using namespace std;
+#include "Header.cpp"
 
 int main()
 {
