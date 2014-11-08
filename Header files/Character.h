@@ -5,7 +5,7 @@
 
 class Character{
 public:
-	Character();
+	Character(std::string type);
 	sf::Sprite getSprite();
 	void UpdatePosition(float x, float y);
 private:

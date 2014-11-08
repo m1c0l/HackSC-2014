@@ -1,13 +1,20 @@
 #include "Character.h"
 
-Character::Character(){
+Character::Character(std::string type){
 	Texture = new sf::Texture();
 	characterSprite = new sf::Sprite();
 	animationCycle = 0;
 
-	Texture->loadFromFile("\character1.png");
+	if (type == "player"){
+		Texture->loadFromFile("\character1.png");
+		characterSprite->setTextureRect(sf::IntRect(450, 210, 105, 180));
+	}
+	else{
+		Texture->loadFromFile("\ghost.png");
+		characterSprite->setTextureRect(sf::IntRect(15, 16, 90, 180));
+	}
 	characterSprite->setTexture(*Texture);
-	characterSprite->setTextureRect(sf::IntRect(450, 210, 105, 180));
+	characterSprite->setPosition(300, 300);
 	characterSprite->setScale(0.5, 0.5);
 }
 
