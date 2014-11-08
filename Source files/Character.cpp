@@ -7,12 +7,21 @@ Character::Character(){
 
 	Texture->loadFromFile("\character1.png");
 	characterSprite->setTexture(*Texture);
-	characterSprite->setTextureRect(sf::IntRect(450,210,105,180));
+	characterSprite->setTextureRect(sf::IntRect(450, 210, 105, 180));
+	characterSprite->setScale(0.5, 0.5);
 }
 
 void Character::UpdatePosition(float x, float y){
 	if (x < 0){
-	
+		if (animationCycle % 3 == 0){
+			characterSprite->setTextureRect(sf::IntRect(180, 15, 90, 180));
+		}
+		if (animationCycle % 3 == 1){
+			characterSprite->setTextureRect(sf::IntRect(315, 15, 90, 180));
+		}
+		if (animationCycle % 3 == 2){
+			characterSprite->setTextureRect(sf::IntRect(450, 15, 90, 180));
+		}
 	}
 	if (x > 0){
 		if (animationCycle % 3 == 0){
