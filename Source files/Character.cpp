@@ -1,18 +1,14 @@
 #include "Character.h"
+#include <iostream>
 
-Character::Character(std::string type){
+Character::Character(){
 	Texture = new sf::Texture();
 	characterSprite = new sf::Sprite();
 	animationCycle = 0;
 
-	if (type == "player"){
-		Texture->loadFromFile("\character1.png");
-		characterSprite->setTextureRect(sf::IntRect(450, 210, 105, 180));
-	}
-	else{
-		Texture->loadFromFile("\ghost.png");
-		characterSprite->setTextureRect(sf::IntRect(15, 16, 90, 180));
-	}
+	Texture->loadFromFile("\character1.png");
+	characterSprite->setTextureRect(sf::IntRect(450, 210, 105, 180));
+	
 	characterSprite->setTexture(*Texture);
 	characterSprite->setPosition(300, 300);
 	characterSprite->setScale(0.5, 0.5);
@@ -56,4 +52,46 @@ sf::Sprite Character::getSprite(){
 Character:: ~Character(){
 	delete characterSprite;
 	delete Texture;
+}
+
+Ghost::Ghost(){
+	Texture = new sf::Texture();
+	characterSprite = new sf::Sprite();
+	animationCycle = 0;
+	ghostMovement = 1;
+
+	Texture->loadFromFile("\ghost.png");
+	characterSprite->setTextureRect(sf::IntRect(15, 16, 90, 180));
+
+	characterSprite->setTexture(*Texture);
+	characterSprite->setPosition(300, 300);
+	characterSprite->setScale(0.5, 0.5);
+}
+
+void Ghost::UpdatePosition(){
+	if (animationCycle == 0 || animationCycle == 5){
+		characterSprite->setTextureRect(sf::IntRect(15, 16, 90, 180));
+
+	}if (animationCycle == 1 || animationCycle == 4){
+		characterSprite->setTextureRect(sf::IntRect(120, 16, 90, 180));
+
+	}if (animationCycle == 3){
+		characterSprite->setTextureRect(sf::IntRect(225, 16, 90, 180));
+	}
+
+	characterSprite->move(ghostMovement, 0);
+
+	if (animationCycle == 5){
+		animationCycle = 0;
+	}
+	else{
+		animationCycle++;
+	}
+	collision();
+}
+
+void Ghost::collision(){
+	if (characterSprite->getGlobalBounds().contains(0, characterSprite->getPosition().y) || characterSprite->getGlobalBounds().contains(800, characterSprite->getPosition().y)){
+		ghostMovement = -ghostMovement;
+	}
 }

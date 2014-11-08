@@ -5,15 +5,24 @@
 
 class Character{
 public:
-	Character(std::string type);
+	Character();
 	sf::Sprite getSprite();
 	void UpdatePosition(float x, float y);
-private:
+protected:
 	sf::Sprite *characterSprite;
 	sf::Texture *Texture;
 	void LoadTexture(sf::Texture *Texture);
 	int animationCycle;
 	~Character();
+};
+
+class Ghost : public Character{
+public:
+	Ghost();
+	void UpdatePosition();
+	void collision();
+private:
+	int ghostMovement;
 };
 
 #endif

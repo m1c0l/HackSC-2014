@@ -4,7 +4,7 @@
 bool collision(Character *player, std::vector<sf::Sprite> list){
 	// Is the player colliding with the active sprites?
 	for (auto it : list){
-		std::cout << player->getSprite().getGlobalBounds().intersects(it.getGlobalBounds()) << std::endl;
+		player->getSprite().getGlobalBounds().intersects(it.getGlobalBounds());
 	}
 	return true;
 }
