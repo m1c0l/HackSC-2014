@@ -15,11 +15,14 @@ int main()
 				window.close();
 			if (event.type == sf::Event::KeyPressed){
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-					character->UpdatePosition(5, 0);
+					character->UpdatePosition(10, 0);
 				}
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-					character->UpdatePosition(-5, 0);
+					character->UpdatePosition(-10, 0);
 				}
+			}
+			if (event.type == sf::Event::KeyReleased){
+				character->UpdatePosition(0, 0);
 			}
 
 		}

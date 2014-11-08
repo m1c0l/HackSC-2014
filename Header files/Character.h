@@ -12,7 +12,7 @@ private:
 	sf::Sprite *characterSprite;
 	sf::Texture *Texture;
 	void LoadTexture(sf::Texture *Texture);
-	
+	int animationCycle;
 	~Character();
 };
 
