@@ -9,14 +9,14 @@ class Ghost;
 class Character;
 class Floor {
 public:
-	Floor();
+	Floor(int, int);
+	~Floor();
 	sf::Drawable &getDrawable();
 	sf::Sprite getSprite();
 	Character *getPlayer();
 	Ghost *getMonster();
 	std::vector<sf::Drawable *> *getObjects();
 private:
-	~Floor();
 	sf::Sprite *mapSprite;
 	Door *door;
 	Character *player;

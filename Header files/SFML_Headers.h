@@ -5,5 +5,6 @@
 #include "Character.h"
 #include "Door.h"
 #include "Floor.h"
+#include "Level.h"
 #include "GeneralFunctions.h"
 #endif

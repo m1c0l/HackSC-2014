@@ -1,11 +1,15 @@
 #include "Floor.h"
 
-Floor::Floor() {
+Floor::Floor(int numGhosts, int numDoors) {
 	textureMap = new sf::Texture();
 	mapSprite = new sf::Sprite();
 	player = new Character();
-	monster = new Ghost();
-	door = new Door();
+	monster = new Ghost[numGhosts];
+	door = new Door[numDoors];
+
+	for (int i = 1; i < numGhosts; i++) {
+		monster[i].getSprite()->setPosition(100 + getRandomInt(200, 600), 400);
+	}
 
 	textureMap->loadFromFile("brickwall.png");
 	
@@ -16,10 +20,13 @@ Floor::Floor() {
 
 	// push back in order of drawing
 	objects.push_back(&getDrawable());
-	objects.push_back(&door->getDrawable());
+	for (int i = 0; i < numDoors; i++) {
+		objects.push_back(&door[i].getDrawable());
+	}
 	objects.push_back(&player->getDrawable());
-	objects.push_back(&monster->getDrawable());
-	
+	for (int i = 0; i < numGhosts; i++) {
+		objects.push_back(&monster[i].getDrawable());
+	}
 	
 }
 
