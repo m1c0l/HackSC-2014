@@ -32,6 +32,12 @@ Floor::Floor(int numGhosts, int numDoors) {
 	
 }
 
+void Floor::updateMonsterPosition(){
+	for (int i = 0; i < getTotalGhosts(); i++){
+		getMonster()[i].UpdatePosition();
+	}
+}
+
 int Floor::getTotalGhosts(){
 	return totalGhosts;
 }
