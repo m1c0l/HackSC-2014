@@ -49,24 +49,10 @@ int main()
 			}
 
 			if (event.type == sf::Event::MouseButtonPressed){
-				if (state == false && sf::Mouse::getPosition().y > 300 && n > 100){
-					window.close();
-				}
-				if (state == false && sf::Mouse::getPosition().y < 300 && n > 100){
-					state = true;
-					n = 0;
-					for (int i = 0; i < floor->getTotalGhosts(); i++){
-						floor->getMonster()[i].getSprite()->setPosition(100 + getRandomInt(200, 600), 400);
-						floor->getMonster()[i].getSprite()->setScale(.5, .5);
-						std::cout << i << std::endl;
-					}
-				}
+				menuHandler(state, n, floor, window);
 			}
 		}
-
-		for (int i = 0; i < floor->getTotalGhosts(); i++){
-			floor->getMonster()[i].UpdatePosition();
-		}
+		floor->updateMonsterPosition();
 
 		window.clear();
 
@@ -78,22 +64,12 @@ int main()
 			window.draw(**it);
 		}
 
-		if (state == false){
-			window.draw(Text);
-			n++;
-			if (n > 100){
-				window.draw(*menu);
-			}
-		}
+		drawGameOver(state, n, window, Text, menu);
 
 		window.display();
 		window.clear();
 
-		if (state == false && n % 1000 == 0){
-			floor->getMonster()[0].UpdatePosition();
-			floor->getMonster()[0].getSprite()->setPosition(-10, 0);	
-			window.display();
-		}
+		scare(state, n, floor, window);
 
 	}
 
