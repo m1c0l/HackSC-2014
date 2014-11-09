@@ -18,6 +18,15 @@ protected:
 	
 };
 
+class Closet : public Door{
+public:
+	Closet();
+	~Closet();
+	void updateImage();
+private:
+	int animationCycle;
+};
+
 class Exit : public Door{
 public:
 	Exit();

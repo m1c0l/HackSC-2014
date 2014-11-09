@@ -37,6 +37,34 @@ Door::~Door(){
 	delete doorSprite;
 }
 
+Closet::Closet(){
+	Texture = new sf::Texture();
+	doorSprite = new sf::Sprite();
+	animationCycle = 1;
+	// TODO
+	Texture->loadFromFile("closet.png");
+	doorSprite->setTexture(*Texture);
+	doorSprite->setPosition(250, 330);
+	doorSprite->setTextureRect(sf::IntRect(15, 13, 115, 180));
+	doorSprite->setScale(0.75, 0.75);
+}
+
+void Closet::updateImage(){
+	if (animationCycle == 0){
+		doorSprite->setTextureRect(sf::IntRect(15, 13, 115, 180));
+		animationCycle++;
+	}else{
+		doorSprite->setTextureRect(sf::IntRect(15, 208, 105, 180));
+		animationCycle = 0;
+	}
+	
+}
+
+Closet::~Closet(){
+	delete Texture;
+	delete doorSprite;
+}
+
 Exit::Exit(){
 	Texture = new sf::Texture();
 	doorSprite = new sf::Sprite();

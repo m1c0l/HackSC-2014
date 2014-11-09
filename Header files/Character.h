@@ -9,7 +9,10 @@ public:
 	sf::Drawable &getDrawable();
 	sf::Sprite *getSprite();
 	void UpdatePosition(float x, float y); 
+	void UpdateSafety();
+	bool getSafety();
 protected:
+	bool safety;
 	sf::Sprite *characterSprite;
 	sf::Texture *Texture;
 	int animationCycle;

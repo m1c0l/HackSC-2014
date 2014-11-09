@@ -46,11 +46,17 @@ int main()
 				window.close();
 
 			if (event.type == sf::Event::KeyPressed){
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && floor->getPlayer()->getSafety() == false){
 					floor->getPlayer()->UpdatePosition(10, 0);
 				}
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && floor->getPlayer()->getSafety() == false){
 					floor->getPlayer()->UpdatePosition(-10, 0);
+				}
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+					if (floor->getCloset()->collision(floor->getPlayer())){
+						floor->getPlayer()->UpdateSafety();
+						floor->getCloset()->updateImage();
+					}
 				}
 			}
 
@@ -67,8 +73,14 @@ int main()
 			collision(floor->getPlayer(), floor->getMonster()[i].getSprite(), state);
 		}
 
+		int t = 0;
 		for (auto it = floor->getObjects()->begin(); it != floor->getObjects()->end(); it++){
+			if (floor->getPlayer()->getSafety() == true && floor->getPlayerPosition() == t){
+				it++;
+			}
+			
 			window.draw(**it);
+			t++;
 		}
 
 		drawGameOver(state, n, window, Text, menu);

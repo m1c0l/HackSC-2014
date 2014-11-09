@@ -5,6 +5,7 @@ Character::Character(){
 	Texture = new sf::Texture();
 	characterSprite = new sf::Sprite();
 	animationCycle = 0;
+	safety = false;
 
 	Texture->loadFromFile("\character1.png");
 	characterSprite->setTextureRect(sf::IntRect(450, 210, 105, 180));
@@ -12,6 +13,18 @@ Character::Character(){
 	characterSprite->setTexture(*Texture);
 	characterSprite->setPosition(300, 400);
 	characterSprite->setScale(0.5, 0.5);
+}
+
+bool Character::getSafety(){
+	return safety;
+}
+
+void Character::UpdateSafety(){
+	if (safety == false){
+		safety = true;
+	}else{
+		safety = false;
+	}
 }
 
 void Character::UpdatePosition(float x, float y){

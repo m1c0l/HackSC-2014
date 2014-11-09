@@ -6,8 +6,12 @@ Floor::Floor(int numGhosts, int numDoors) {
 	player = new Character();
 	monster = new Ghost[numGhosts];
 	door = new Door[numDoors];
+	closet = new Closet();
 	totalDoors = numDoors;
 	totalGhosts = numGhosts;
+	playerPosition = 0;
+
+	closet->getSprite().setPosition(100 + getRandomInt(200, 600), 400);
 
 	for (int i = 1; i < numGhosts; i++) {
 		monster[i].getSprite()->setPosition(100 + getRandomInt(200, 600), 400);
@@ -22,9 +26,12 @@ Floor::Floor(int numGhosts, int numDoors) {
 
 	// push back in order of drawing
 	objects.push_back(&getDrawable());
+	objects.push_back(&closet->getDrawable());
 	for (int i = 0; i < numDoors; i++) {
 		objects.push_back(&door[i].getDrawable());
+		playerPosition++;
 	}
+	playerPosition += 2;
 	objects.push_back(&player->getDrawable());
 	for (int i = 0; i < numGhosts; i++) {
 		objects.push_back(&monster[i].getDrawable());
@@ -32,10 +39,18 @@ Floor::Floor(int numGhosts, int numDoors) {
 	
 }
 
+int Floor::getPlayerPosition(){
+	return playerPosition;
+}
+
 void Floor::updateMonsterPosition(){
 	for (int i = 0; i < getTotalGhosts(); i++){
 		getMonster()[i].UpdatePosition();
 	}
+}
+
+Closet *Floor::getCloset(){
+	return closet;
 }
 
 int Floor::getTotalGhosts(){
