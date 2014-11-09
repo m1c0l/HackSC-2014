@@ -76,7 +76,7 @@ Ghost::Ghost(){
 	characterSprite->setTextureRect(sf::IntRect(15, 16, 90, 180));
 
 	characterSprite->setTexture(*Texture);
-	characterSprite->setPosition(300, 400);
+	characterSprite->setPosition(100, 400);
 	characterSprite->setScale(0.5, 0.5);
 }
 

@@ -5,14 +5,18 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
 	window.setFramerateLimit(60);
 
-	//std::vector<sf::Drawable *> list;
-	//Character *character = new Character();
-	//Ghost *monster = new Ghost();
-	Floor *floor = new Floor();
+	bool state = true;
+	sf::Font gameOver;
+	gameOver.loadFromFile("arial.ttf");
+	sf::Text Text;
+	Text.setFont(gameOver);
+	Text.setString("GAME OVER");
+	Text.setCharacterSize(75);
+	Text.setPosition(200, 250);
+	Text.setColor(sf::Color::Red);
 
-	//list.push_back(&floor->getDrawable());
-	//list.push_back(&character->getDrawable());
-	//list.push_back(&monster->getDrawable());
+	Floor *floor = new Floor();
+	int n = 0;
 
 	while (window.isOpen())
 	{
@@ -34,20 +38,35 @@ int main()
 			if (event.type == sf::Event::KeyReleased){
 				floor->getPlayer()->UpdatePosition(0, 0);
 			}
-			
-			std::cout<<collision(floor->getPlayer(), floor->getMonster()->getSprite());
+
 		}
-		
+
 		floor->getMonster()->UpdatePosition();
 
 		window.clear();
+
+		collision(floor->getPlayer(), floor->getMonster()->getSprite(), state);
 
 		for (auto it = floor->getObjects()->begin(); it != floor->getObjects()->end(); it++){
 			window.draw(**it);
 		}
 
+		if (state == false){
+			window.draw(Text);
+		}
+
 		window.display();
+
+		window.clear();
+
+		if (state == false && n % 1000 == 0){
+			floor->getMonster()->UpdatePosition();
+			floor->getMonster()->getSprite()->setPosition(-10, 0);	
+			window.display();
+		}
+
+		n++;
 	}
 
-	return 0;
+	system("pause");
 }
