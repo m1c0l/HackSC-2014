@@ -35,7 +35,8 @@ private:
 	Ghost *monster;
 	sf::Texture *textureMap;
 	std::vector<sf::Drawable *> objects;
-	std::vector<sf::Sprite*> objectBoundaries;
+	std::vector<sf::Sprite*> spriteBoundaries;
+	void addSpriteBoundaries(sf::Sprite *sprite, int xmin, int xmax, int y);
 };
 
 #endif

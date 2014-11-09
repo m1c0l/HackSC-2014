@@ -11,13 +11,18 @@ Floor::Floor(int numGhosts, int numDoors) {
 	totalGhosts = numGhosts;
 	playerPosition = 0;
 
-	closet->getSprite()->setPosition(100 + getRandomInt(200, 600), 330);
+	addSpriteBoundaries(player->getSprite(), 50, 300, 400); // add player first at the left
+
+	//closet->getSprite()->setPosition(100 + getRandomInt(200, 600), 330);
+	addSpriteBoundaries(closet->getSprite(), 0, 700, 330);
 
 	for (int i = 0; i < totalGhosts; i++) {
-		monster[i].getSprite()->setPosition(100 + getRandomInt(200, 600), 400);
+		//monster[i].getSprite()->setPosition(100 + getRandomInt(200, 600), 400);
+		addSpriteBoundaries(monster[i].getSprite(), 200, 700, 400);
 	}
 	for (int i = 0; i < totalDoors; i++) {
-		door[i].getSprite()->setPosition(100 + getRandomInt(200, 600), 315);
+		//door[i].getSprite()->setPosition(100 + getRandomInt(200, 600), 315);
+		addSpriteBoundaries(door[i].getSprite(), 0, 700, 315);
 	}
 
 	textureMap->loadFromFile("brickwall.png");
@@ -92,4 +97,26 @@ Floor:: ~Floor(){
 	delete mapSprite;
 	delete textureMap;
 	// TODO: delete the other stuff too
+}
+
+void Floor::addSpriteBoundaries(sf::Sprite *sprite, int xmin, int xmax, int y) {
+	// randomly add sprite at a location with x between min and max
+	// and also, none of the sprites will collide at all with each other
+	int x;
+	if (spriteBoundaries.empty()) {
+		x = getRandomInt(xmin, xmax); // freely choose random x if there aren't any sprites yet
+	}
+	else {
+		bool isIntersect;
+		do {
+			isIntersect = false;
+			x = getRandomInt(xmin, xmax); // generate new x until current sprite doesn't collide with any other sprite
+			for (int i = 0; !isIntersect && i < spriteBoundaries.size(); i++) {
+				sprite->setPosition(x, y);
+				isIntersect = sprite->getGlobalBounds().intersects(spriteBoundaries[i]->getGlobalBounds());
+			}
+		} while(isIntersect);
+	}
+	
+	spriteBoundaries.push_back(sprite);
 }
