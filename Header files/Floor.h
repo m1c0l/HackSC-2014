@@ -9,7 +9,7 @@ class Ghost;
 class Character;
 class Floor {
 public:
-	Floor(int, int);
+	Floor(int numGhosts, int numDoors);
 	~Floor();
 	int getTotalGhosts();
 	int getTotalDoors();
@@ -18,6 +18,7 @@ public:
 	Character *getPlayer();
 	Ghost *getMonster();
 	std::vector<sf::Drawable *> *getObjects();
+	void updateMonsterPosition();
 private:
 	int totalGhosts;
 	int totalDoors;
