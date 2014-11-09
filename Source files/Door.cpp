@@ -6,6 +6,9 @@ Door::Door(){
 	// TODO
 	Texture->loadFromFile("Doors.png");
 	doorSprite->setTexture(*Texture);
+	doorSprite->setPosition(450, 310);
+	doorSprite->setTextureRect(sf::IntRect(15, 30, 105, 195));
+	doorSprite->setScale(0.75, 0.75);
 }
 
 sf::Sprite Door::getSprite() {

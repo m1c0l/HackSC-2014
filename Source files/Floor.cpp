@@ -8,14 +8,18 @@ Floor::Floor() {
 	door = new Door();
 
 	textureMap->loadFromFile("brickwall.png");
-	mapSprite->setTextureRect(sf::IntRect(0, 0, 800, 600));
+	
+	mapSprite->scale(0.78125, 0.5859375); // 800 / 1024 and 600 / 1024 respectively
+	//mapSprite->setTextureRect(sf::IntRect(0, 0, 800, 600));
 	
 	mapSprite->setTexture(*textureMap);
 
+	// push back in order of drawing
 	objects.push_back(&getDrawable());
+	objects.push_back(&door->getDrawable());
 	objects.push_back(&player->getDrawable());
 	objects.push_back(&monster->getDrawable());
-	objects.push_back(&door->getDrawable());
+	
 	
 }
 
@@ -42,4 +46,5 @@ sf::Sprite Floor::getSprite(){
 Floor:: ~Floor(){
 	delete mapSprite;
 	delete textureMap;
+	// TODO: delete the other stuff too
 }
