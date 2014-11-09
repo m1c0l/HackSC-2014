@@ -11,12 +11,16 @@ class Floor {
 public:
 	Floor(int, int);
 	~Floor();
+	int getTotalGhosts();
+	int getTotalDoors();
 	sf::Drawable &getDrawable();
 	sf::Sprite getSprite();
 	Character *getPlayer();
 	Ghost *getMonster();
 	std::vector<sf::Drawable *> *getObjects();
 private:
+	int totalGhosts;
+	int totalDoors;
 	sf::Sprite *mapSprite;
 	Door *door;
 	Character *player;

@@ -6,6 +6,8 @@ Floor::Floor(int numGhosts, int numDoors) {
 	player = new Character();
 	monster = new Ghost[numGhosts];
 	door = new Door[numDoors];
+	totalDoors = numDoors;
+	totalGhosts = numGhosts;
 
 	for (int i = 1; i < numGhosts; i++) {
 		monster[i].getSprite()->setPosition(100 + getRandomInt(200, 600), 400);
@@ -28,6 +30,14 @@ Floor::Floor(int numGhosts, int numDoors) {
 		objects.push_back(&monster[i].getDrawable());
 	}
 	
+}
+
+int Floor::getTotalGhosts(){
+	return totalGhosts;
+}
+
+int Floor::getTotalDoors(){
+	return totalDoors;
 }
 
 std::vector<sf::Drawable *> *Floor::getObjects(){
