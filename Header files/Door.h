@@ -3,12 +3,15 @@
 
 #include "SFML_Headers.h"
 
+class Character;
+
 class Door{
 public:
 	Door();
 	~Door();
 	sf::Sprite getSprite();
 	sf::Drawable &getDrawable();
+	bool collision(Character *player);
 protected:
 	sf::Sprite *doorSprite;
 	sf::Texture *Texture;
