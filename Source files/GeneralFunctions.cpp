@@ -23,10 +23,10 @@ int getRandomInt(int min, int max) {
 }
 
 void menuHandler(bool &state, int &n, Floor *floor, sf::Window &window){
-	if (state == false && sf::Mouse::getPosition().y > 300 && n > 100){
+	if (state == false && sf::Mouse::getPosition().y > 400 && n > 100){
 		window.close();
 	}
-	if (state == false && sf::Mouse::getPosition().y < 300 && n > 100){
+	if (state == false && sf::Mouse::getPosition().y < 400 && n > 100){
 		state = true;
 		n = 0;
 		for (int i = 0; i < floor->getTotalGhosts(); i++){
@@ -52,4 +52,27 @@ void scare(bool state, int n, Floor *floor, sf::RenderWindow &window){
 		floor->getMonster()[0].getSprite()->setPosition(-10, 0);
 		window.display();
 	}
+}
+
+int enterMenu(sf::Sprite *Menu, sf::RenderWindow &window){
+	while (window.isOpen())
+	{
+		sf::Event event;
+
+		window.clear();
+		window.draw(*Menu);
+		window.display();
+		while (window.pollEvent(event)){
+			if (event.type == sf::Event::MouseButtonPressed){
+				if (sf::Mouse::getPosition().y < 400){
+					window.close();
+				}
+				if (sf::Mouse::getPosition().y > 400){
+					window.close();
+					return 0;
+				}
+			}
+		}
+	}
+	return 1;
 }

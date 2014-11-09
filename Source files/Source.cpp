@@ -2,7 +2,20 @@
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
+	sf::Sprite *menu = new sf::Sprite();
+	sf::Texture *menuTexture = new sf::Texture();
+
+	menuTexture->loadFromFile("menu.png");
+	menu->setTexture(*menuTexture);
+	menu->setScale(1.12, 1.85);
+
+	sf::RenderWindow windowStart(sf::VideoMode(800, 600), "START MENU");
+	int x = enterMenu(menu,windowStart);
+	if (x == 0){
+		return 0;
+	}
+
+	sf::RenderWindow window(sf::VideoMode(800, 600), "CAN YOU SURVIVE?");
 	window.setFramerateLimit(60);
 
 	bool state = true;
@@ -17,13 +30,6 @@ int main()
 	Text.setPosition(200, 250);
 	Text.setColor(sf::Color::Red);
 
-	sf::Sprite *menu = new sf::Sprite();
-	sf::Texture *menuTexture = new sf::Texture();
-
-	menuTexture->loadFromFile("menu.png");
-	menu->setTexture(*menuTexture);
-	menu->setScale(1.12, 1.85);
-
 	Floor *floor = new Floor(2,1);
 	int n = 0;
 
@@ -32,6 +38,10 @@ int main()
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
+			if (event.type == sf::Event::MouseButtonPressed){
+				menuHandler(state, n, floor, window);
+			}
+
 			if (event.type == sf::Event::Closed)
 				window.close();
 
@@ -48,9 +58,6 @@ int main()
 				floor->getPlayer()->UpdatePosition(0, 0);
 			}
 
-			if (event.type == sf::Event::MouseButtonPressed){
-				menuHandler(state, n, floor, window);
-			}
 		}
 		floor->updateMonsterPosition();
 
