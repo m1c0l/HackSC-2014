@@ -5,6 +5,7 @@
 #include <random>
 
 class Character;
+class Floor;
 void collision(Character *player, sf::Sprite *monster, bool &state);
 int getRandomInt(int min, int max);
 void menuHandler(bool &state, int &n, Floor *floor, sf::Window &window);
