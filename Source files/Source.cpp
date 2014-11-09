@@ -30,7 +30,7 @@ int main()
 	Text.setPosition(200, 250);
 	Text.setColor(sf::Color::Red);
 
-	Floor *floor = new Floor(2,1);
+	Level *level = new Level(5);
 	int n = 0;
 
 	while (window.isOpen())
@@ -39,43 +39,50 @@ int main()
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::MouseButtonPressed){
-				menuHandler(state, n, floor, window);
+				menuHandler(state, n, level, window);
 			}
 
 			if (event.type == sf::Event::Closed)
 				window.close();
 
 			if (event.type == sf::Event::KeyPressed){
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && floor->getPlayer()->getSafety() == false){
-					floor->getPlayer()->UpdatePosition(10, 0);
-				}
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && floor->getPlayer()->getSafety() == false){
-					floor->getPlayer()->UpdatePosition(-10, 0);
-				}
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-					if (floor->getCloset()->collision(floor->getPlayer())){
-						floor->getPlayer()->UpdateSafety();
-						floor->getCloset()->updateImage();
+					if (level->getFloor()[level->getFloorLevel()]->getCloset()->collision(level->getFloor()[level->getFloorLevel()]->getPlayer())){
+						level->getFloor()[level->getFloorLevel()]->getPlayer()->UpdateSafety();
+						level->getFloor()[level->getFloorLevel()]->getCloset()->updateImage();
 					}
+					for (int i = 0; i < level->getFloor()[level->getFloorLevel()]->getTotalDoors(); i++){
+						if (level->getFloor()[level->getFloorLevel()]->getDoor()[i].collision(level->getFloor()[level->getFloorLevel()]->getPlayer())){
+							if (level->getFloorLevel() < 5){
+								level->getFloorLevel()++;
+							}
+						}
+					}
+				}
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && level->getFloor()[level->getFloorLevel()]->getPlayer()->getSafety() == false){
+					level->getFloor()[level->getFloorLevel()]->getPlayer()->UpdatePosition(10, 0);
+				}
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && level->getFloor()[level->getFloorLevel()]->getPlayer()->getSafety() == false){
+					level->getFloor()[level->getFloorLevel()]->getPlayer()->UpdatePosition(-10, 0);
 				}
 			}
 
 			if (event.type == sf::Event::KeyReleased){
-				floor->getPlayer()->UpdatePosition(0, 0);
+				level->getFloor()[level->getFloorLevel()]->getPlayer()->UpdatePosition(0, 0);
 			}
 
 		}
-		floor->updateMonsterPosition();
+		level->getFloor()[level->getFloorLevel()]->updateMonsterPosition();
 
 		window.clear();
 
-		for (int i = 0; i < floor->getTotalGhosts(); i++){
-			collision(floor->getPlayer(), floor->getMonster()[i].getSprite(), state);
+		for (int i = 0; i < level->getFloor()[level->getFloorLevel()]->getTotalGhosts(); i++){
+			collision(level->getFloor()[level->getFloorLevel()]->getPlayer(), level->getFloor()[level->getFloorLevel()]->getMonster()[i].getSprite(), state);
 		}
 
 		int t = 0;
-		for (auto it = floor->getObjects()->begin(); it != floor->getObjects()->end(); it++){
-			if (floor->getPlayer()->getSafety() == true && floor->getPlayerPosition() == t){
+		for (auto it = level->getFloor()[level->getFloorLevel()]->getObjects()->begin(); it != level->getFloor()[level->getFloorLevel()]->getObjects()->end(); it++){
+			if (level->getFloor()[level->getFloorLevel()]->getPlayer()->getSafety() == true && level->getFloor()[level->getFloorLevel()]->getPlayerPosition() == t){
 				it++;
 			}
 			
@@ -88,7 +95,7 @@ int main()
 		window.display();
 		window.clear();
 
-		scare(state, n, floor, window);
+		scare(state, n, level->getFloor()[level->getFloorLevel()], window);
 
 	}
 

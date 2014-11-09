@@ -1,11 +1,20 @@
 #include "Level.h"
 
-Level::Level() {
-	floors = new Floor*[3];
+Level::Level(int amount) {
+	floorLevel = 0;
+	floors = new Floor*[amount];
 	// TODO: customize the floors here
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < amount; i++) {
 		floors[i] = new Floor(2, 2);
 	}
+}
+
+int &Level::getFloorLevel(){
+	return floorLevel;
+}
+
+Floor **Level::getFloor(){
+	return floors;
 }
 
 Level::~Level() {

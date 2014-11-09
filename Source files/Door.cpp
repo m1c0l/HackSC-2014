@@ -12,8 +12,8 @@ Door::Door(){
 	doorSprite->setScale(0.75, 0.75);
 }
 
-sf::Sprite Door::getSprite() {
-	return *doorSprite;
+sf::Sprite *Door::getSprite() {
+	return doorSprite;
 }
 
 sf::Drawable &Door::getDrawable(){
@@ -25,7 +25,7 @@ bool Door::collision(Character *player) {
 	// return (player->getSprite()->getGlobalBounds().intersects(getSprite().getGlobalBounds()));
 
 	sf::Rect<float> playerBounds = player->getSprite()->getGlobalBounds(),
-		doorBounds = getSprite().getGlobalBounds();
+		doorBounds = getSprite()->getGlobalBounds();
 	float playerCenterX = playerBounds.left + playerBounds.width / 2,
 		doorCenterX = doorBounds.left + doorBounds.width / 2;
 	return abs(playerCenterX - doorCenterX) < (doorBounds.width / 3);

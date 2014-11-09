@@ -8,11 +8,13 @@ class Floor;
 
 class Level {
 public:
-	Level();
+	Level(int amount);
+	int &getFloorLevel();
+	Floor **getFloor();
 	~Level();
 private:
 	Floor **floors;
-	
+	int floorLevel;
 };
 
 #endif

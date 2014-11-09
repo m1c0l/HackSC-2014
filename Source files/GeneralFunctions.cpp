@@ -22,16 +22,19 @@ int getRandomInt(int min, int max) {
 	return dis(gen);
 }
 
-void menuHandler(bool &state, int &n, Floor *floor, sf::Window &window){
+void menuHandler(bool &state, int &n,Level *&level, sf::Window &window){
 	if (state == false && sf::Mouse::getPosition().y > 400 && n > 100){
 		window.close();
 	}
 	if (state == false && sf::Mouse::getPosition().y < 400 && n > 100){
 		state = true;
 		n = 0;
-		for (int i = 0; i < floor->getTotalGhosts(); i++){
-			floor->getMonster()[i].getSprite()->setPosition(100 + getRandomInt(200, 600), 400);
-			floor->getMonster()[i].getSprite()->setScale(.5, .5);
+		
+		delete level;
+		level = new Level(5);
+		for (int i = 0; i < level->getFloor()[level->getFloorLevel()]->getTotalGhosts(); i++){
+			level->getFloor()[level->getFloorLevel()]->getMonster()[i].getSprite()->setPosition(100 + getRandomInt(200, 600), 400);
+			level->getFloor()[level->getFloorLevel()]->getMonster()[i].getSprite()->setScale(.5, .5);
 		}
 	}
 }
