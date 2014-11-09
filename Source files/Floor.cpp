@@ -11,10 +11,13 @@ Floor::Floor(int numGhosts, int numDoors) {
 	totalGhosts = numGhosts;
 	playerPosition = 0;
 
-	closet->getSprite().setPosition(100 + getRandomInt(200, 600), 400);
+	closet->getSprite()->setPosition(100 + getRandomInt(200, 600), 330);
 
-	for (int i = 1; i < numGhosts; i++) {
+	for (int i = 0; i < totalGhosts; i++) {
 		monster[i].getSprite()->setPosition(100 + getRandomInt(200, 600), 400);
+	}
+	for (int i = 0; i < totalDoors; i++) {
+		door[i].getSprite()->setPosition(100 + getRandomInt(200, 600), 315);
 	}
 
 	textureMap->loadFromFile("brickwall.png");
@@ -51,6 +54,10 @@ void Floor::updateMonsterPosition(){
 
 Closet *Floor::getCloset(){
 	return closet;
+}
+
+Door *Floor::getDoor() {
+	return door;
 }
 
 int Floor::getTotalGhosts(){

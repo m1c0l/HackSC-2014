@@ -21,6 +21,7 @@ public:
 	Character *getPlayer();
 	Ghost *getMonster();
 	Closet *getCloset();
+	Door *getDoor();
 	std::vector<sf::Drawable *> *getObjects();
 	void updateMonsterPosition();
 private:
@@ -34,6 +35,7 @@ private:
 	Ghost *monster;
 	sf::Texture *textureMap;
 	std::vector<sf::Drawable *> objects;
+	std::vector<sf::Sprite*> objectBoundaries;
 };
 
 #endif
