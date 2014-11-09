@@ -9,7 +9,7 @@ class Floor;
 class Level;
 void collision(Character *player, sf::Sprite *monster, bool &state);
 int getRandomInt(int min, int max);
-void menuHandler(bool &state, int &n, Level *&level, sf::Window &window);
+void menuHandler(bool &state, int &n, Level *&level, sf::Window &window, sf::Text &levelIndicator);
 void drawGameOver(bool state,int &n, sf::RenderWindow &window, sf::Text &Text, sf::Sprite *Menu);
 void scare(bool state, int n, Floor *floor, sf::RenderWindow &window);
 int enterMenu(sf::Sprite *Menu, sf::RenderWindow &window);

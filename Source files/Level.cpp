@@ -5,7 +5,11 @@ Level::Level(int amount) {
 	floors = new Floor*[amount];
 	// TODO: customize the floors here
 	for (int i = 0; i < amount; i++) {
-		floors[i] = new Floor(2, 2);
+		if (i == amount - 1){
+			floors[i] = new Floor(2, 0);
+		}else{
+			floors[i] = new Floor(2, 2);
+		}
 	}
 }
 

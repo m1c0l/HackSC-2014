@@ -7,6 +7,7 @@
 
 class Door;
 class Closet;
+class Exit;
 class Ghost;
 class Character;
 class Floor {
@@ -21,6 +22,7 @@ public:
 	Character *getPlayer();
 	Ghost *getMonster();
 	Closet *getCloset();
+	Exit *getExit();
 	Door *getDoor();
 	std::vector<sf::Drawable *> *getObjects();
 	void updateMonsterPosition();
@@ -29,6 +31,7 @@ private:
 	int totalGhosts;
 	int totalDoors;
 	sf::Sprite *mapSprite;
+	Exit *exit;
 	Closet *closet;
 	Door *door;
 	Character *player;

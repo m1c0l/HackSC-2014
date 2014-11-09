@@ -68,5 +68,11 @@ Closet::~Closet(){
 Exit::Exit(){
 	Texture = new sf::Texture();
 	doorSprite = new sf::Sprite();
+
+	Texture->loadFromFile("Doors.png");
+	doorSprite->setTexture(*Texture);
+	doorSprite->setPosition(450, 315);
+	doorSprite->setTextureRect(sf::IntRect(165, 30, 115, 195));
+	doorSprite->setScale(0.75, 0.75);
 	// TODO: This constructor will be different in the picture used
 }

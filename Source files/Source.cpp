@@ -1,4 +1,4 @@
-#include "SFML_Headers.h"
+	#include "SFML_Headers.h"
 
 int main()
 {
@@ -10,7 +10,7 @@ int main()
 	menu->setScale(1.12, 1.85);
 
 	sf::RenderWindow windowStart(sf::VideoMode(800, 600), "START MENU");
-	int x = enterMenu(menu,windowStart);
+	int x = enterMenu(menu, windowStart);
 	if (x == 0){
 		return 0;
 	}
@@ -22,7 +22,7 @@ int main()
 
 	sf::Font gameOver;
 	gameOver.loadFromFile("arial.ttf");
-	sf::Text Text;
+	sf::Text Text, levelIndicator;
 
 	Text.setFont(gameOver);
 	Text.setString("GAME OVER");
@@ -30,8 +30,15 @@ int main()
 	Text.setPosition(200, 250);
 	Text.setColor(sf::Color::Red);
 
-	Level *level = new Level(5);
+	int numLevels = getRandomInt(5, 10);
+	Level *level = new Level(numLevels);
 	int n = 0;
+
+	levelIndicator.setFont(gameOver);
+	levelIndicator.setString(std::to_string(level->getFloorLevel()));
+	levelIndicator.setCharacterSize(25);
+	levelIndicator.setPosition(10, 10);
+	levelIndicator.setColor(sf::Color::Cyan);
 
 	while (window.isOpen())
 	{
@@ -39,7 +46,7 @@ int main()
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::MouseButtonPressed){
-				menuHandler(state, n, level, window);
+				menuHandler(state, n, level, window, levelIndicator);
 			}
 
 			if (event.type == sf::Event::Closed)
@@ -53,8 +60,9 @@ int main()
 					}
 					for (int i = 0; i < level->getFloor()[level->getFloorLevel()]->getTotalDoors(); i++){
 						if (level->getFloor()[level->getFloorLevel()]->getDoor()[i].collision(level->getFloor()[level->getFloorLevel()]->getPlayer())){
-							if (level->getFloorLevel() < 5){
+							if (level->getFloorLevel() < numLevels){
 								level->getFloorLevel()++;
+								levelIndicator.setString(std::to_string(level->getFloorLevel()));
 							}
 						}
 					}
@@ -85,19 +93,36 @@ int main()
 			if (level->getFloor()[level->getFloorLevel()]->getPlayer()->getSafety() == true && level->getFloor()[level->getFloorLevel()]->getPlayerPosition() == t){
 				it++;
 			}
-			
+
 			window.draw(**it);
 			t++;
 		}
 
 		drawGameOver(state, n, window, Text, menu);
 
+		window.draw(levelIndicator);
 		window.display();
 		window.clear();
 
 		scare(state, n, level->getFloor()[level->getFloorLevel()], window);
 
-	}
+		sf::Event event2;
+		if (level->getFloorLevel() == numLevels - 1){
+			if (level->getFloor()[level->getFloorLevel()]->getExit()->collision(level->getFloor()[level->getFloorLevel()]->getPlayer())){
+				
+				sf::Sprite *victory = new sf::Sprite();
+				sf::Texture *victoryTexture = new sf::Texture();
 
+				victoryTexture->loadFromFile("victory.png");
+				victory->setTexture(*victoryTexture);
+				victory->setScale(0.9, 2.1);
+				
+				window.clear();
+				window.draw(*victory);
+				window.display();
+				break;
+			}
+		}
+	}
 	system("pause");
 }

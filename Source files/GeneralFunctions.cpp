@@ -22,13 +22,14 @@ int getRandomInt(int min, int max) {
 	return dis(gen);
 }
 
-void menuHandler(bool &state, int &n,Level *&level, sf::Window &window){
+void menuHandler(bool &state, int &n,Level *&level, sf::Window &window, sf::Text &levelIndicator){
 	if (state == false && sf::Mouse::getPosition().y > 400 && n > 100){
 		window.close();
 	}
 	if (state == false && sf::Mouse::getPosition().y < 400 && n > 100){
 		state = true;
 		n = 0;
+		levelIndicator.setString(std::to_string(0));
 		
 		delete level;
 		level = new Level(5);
