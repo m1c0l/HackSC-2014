@@ -53,8 +53,12 @@ void Character::UpdatePosition(float x, float y){
 	animationCycle++;
 }
 
-sf::Sprite Character::getSprite(){
+sf::Drawable &Character::getDrawable(){
 	return *characterSprite;
+}
+
+sf::Sprite *Character::getSprite(){
+	return characterSprite;
 }
 
 Character:: ~Character(){

@@ -8,6 +8,7 @@ public:
 	Door();
 	~Door();
 	sf::Sprite getSprite();
+	sf::Drawable &getDrawable();
 protected:
 	sf::Sprite *doorSprite;
 	sf::Texture *Texture;

@@ -1,12 +1,13 @@
 #include "GeneralFunctions.h"
 
 
-bool collision(Character *player, std::vector<sf::Sprite> list){
+bool collision(Character *player, sf::Sprite *monsters){
 	// Is the player colliding with the active sprites?
-	for (auto it : list){
-		player->getSprite().getGlobalBounds().intersects(it.getGlobalBounds());
+	if (player->getSprite()->getGlobalBounds().intersects(monsters->getGlobalBounds())){
+		return true;
+	}else{
+		return false;
 	}
-	return true;
 }
 
 int getRandomInt(int min, int max) {

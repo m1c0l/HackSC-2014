@@ -5,16 +5,24 @@
 #include "SFML_Headers.h"
 
 class Door;
+class Ghost;
+class Character;
 class Floor {
 public:
-	Floor(std::vector<Door>);
+	Floor();
+	sf::Drawable &getDrawable();
 	sf::Sprite getSprite();
-	std::vector<Door> getDoors();
+	Character *getPlayer();
+	Ghost *getMonster();
+	std::vector<sf::Drawable *> *getObjects();
 private:
 	~Floor();
-	sf::Sprite *characterSprite;
-	sf::Texture *Texture;
-	std::vector<Door> doors;
+	sf::Sprite *mapSprite;
+	Door *door;
+	Character *player;
+	Ghost *monster;
+	sf::Texture *textureMap;
+	std::vector<sf::Drawable *> objects;
 };
 
 #endif

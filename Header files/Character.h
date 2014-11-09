@@ -6,7 +6,8 @@
 class Character{
 public:
 	Character();
-	sf::Sprite getSprite();
+	sf::Drawable &getDrawable();
+	sf::Sprite *getSprite();
 	void UpdatePosition(float x, float y); 
 protected:
 	sf::Sprite *characterSprite;

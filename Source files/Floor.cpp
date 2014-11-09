@@ -1,30 +1,45 @@
 #include "Floor.h"
 
-Floor::Floor(std::vector<Door> d) {
-	Texture = new sf::Texture();
-	characterSprite = new sf::Sprite();
-	doors = d;
+Floor::Floor() {
+	textureMap = new sf::Texture();
+	mapSprite = new sf::Sprite();
+	player = new Character();
+	monster = new Ghost();
+	door = new Door();
 
-	Texture->loadFromFile("\brickwall.png");
-	characterSprite->setTextureRect(sf::IntRect(0, 0, 800, 600));
+	textureMap->loadFromFile("brickwall.png");
+	mapSprite->setTextureRect(sf::IntRect(0, 0, 800, 600));
 	
-	characterSprite->setTexture(*Texture);
+	mapSprite->setTexture(*textureMap);
 
-	for (int i = 0; i < doors.size(); i++) {
-		doors[i].getSprite().setPosition(450, 210);
+	objects.push_back(&getDrawable());
+	objects.push_back(&player->getDrawable());
+	objects.push_back(&monster->getDrawable());
+	objects.push_back(&door->getDrawable());
+	
+}
 
-	}
+std::vector<sf::Drawable *> *Floor::getObjects(){
+	return &objects;
+}
+
+sf::Drawable &Floor::getDrawable(){
+	return *mapSprite;
+}
+
+Character *Floor::getPlayer(){
+	return player;
+}
+
+Ghost *Floor::getMonster(){
+	return monster;
 }
 
 sf::Sprite Floor::getSprite(){
-	return *characterSprite;
-}
-
-std::vector<Door> Floor::getDoors() {
-	return doors;
+	return *mapSprite;
 }
 
 Floor:: ~Floor(){
-	delete characterSprite;
-	delete Texture;
+	delete mapSprite;
+	delete textureMap;
 }

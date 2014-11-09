@@ -5,6 +5,6 @@
 #include <random>
 
 class Character;
-bool collision(Character *player, std::vector<sf::Sprite> list);
+bool collision(Character *player, sf::Sprite *monster);
 int getRandomInt(int min, int max);
 #endif

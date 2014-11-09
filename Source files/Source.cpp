@@ -5,15 +5,14 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
 	window.setFramerateLimit(60);
 
-	std::vector<sf::Sprite> list;
-	Character *character = new Character();
-	Ghost *monster = new Ghost();
-	std::vector<Door> doors;
-	Floor *floor;
+	//std::vector<sf::Drawable *> list;
+	//Character *character = new Character();
+	//Ghost *monster = new Ghost();
+	Floor *floor = new Floor();
 
-	list.push_back(monster->getSprite());
-	doors.push_back(Door());
-	floor = new Floor(doors);
+	//list.push_back(&floor->getDrawable());
+	//list.push_back(&character->getDrawable());
+	//list.push_back(&monster->getDrawable());
 
 	while (window.isOpen())
 	{
@@ -22,33 +21,31 @@ int main()
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
-			// draw the floor first
-			window.draw(floor->getSprite());
-			for (int i = 0; i < floor->getDoors().size(); i++) {
-				window.draw(floor->getDoors()[i].getSprite());
-			}
 
 			if (event.type == sf::Event::KeyPressed){
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-					character->UpdatePosition(10, 0);
+					floor->getPlayer()->UpdatePosition(10, 0);
 				}
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-					character->UpdatePosition(-10, 0);
+					floor->getPlayer()->UpdatePosition(-10, 0);
 				}
 			}
+
 			if (event.type == sf::Event::KeyReleased){
-				character->UpdatePosition(0, 0);
+				floor->getPlayer()->UpdatePosition(0, 0);
 			}
-		
 			
-			collision(character, list);
+			std::cout<<collision(floor->getPlayer(), floor->getMonster()->getSprite());
 		}
 		
-		monster->UpdatePosition();
+		floor->getMonster()->UpdatePosition();
 
 		window.clear();
-		window.draw(character->getSprite());
-		window.draw(monster->getSprite());
+
+		for (auto it = floor->getObjects()->begin(); it != floor->getObjects()->end(); it++){
+			window.draw(**it);
+		}
+
 		window.display();
 	}
 

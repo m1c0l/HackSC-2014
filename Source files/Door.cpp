@@ -4,11 +4,15 @@ Door::Door(){
 	Texture = new sf::Texture();
 	doorSprite = new sf::Sprite();
 	// TODO
-	Texture->loadFromFile("\Doors.png");
+	Texture->loadFromFile("Doors.png");
 	doorSprite->setTexture(*Texture);
 }
 
 sf::Sprite Door::getSprite() {
+	return *doorSprite;
+}
+
+sf::Drawable &Door::getDrawable(){
 	return *doorSprite;
 }
 
