@@ -1,12 +1,14 @@
 #include "GeneralFunctions.h"
 
 
-bool collision(Character *player, sf::Sprite *monsters){
+void collision(Character *player, sf::Sprite *monsters, bool &state){
 	// Is the player colliding with the active sprites?
 	if (player->getSprite()->getGlobalBounds().intersects(monsters->getGlobalBounds())){
-		return true;
+		monsters->setScale(9, 3.5);
+		monsters->setPosition(-10, 0);
+		state = false;
 	}else{
-		return false;
+		return;
 	}
 }
 

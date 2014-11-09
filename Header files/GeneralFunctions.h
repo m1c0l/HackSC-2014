@@ -5,6 +5,6 @@
 #include <random>
 
 class Character;
-bool collision(Character *player, sf::Sprite *monster);
+void collision(Character *player, sf::Sprite *monster, bool &state);
 int getRandomInt(int min, int max);
 #endif
